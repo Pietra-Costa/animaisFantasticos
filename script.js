@@ -49,26 +49,45 @@ accordion()
 
 //scroll suave link interno
 
-const linksInternos = document.querySelectorAll('.js-menu a[href^="#"]')
+function scrollSuave(){
+    const linksInternos = document.querySelectorAll('.js-menu a[href^="#"]')
 
-function handleScroll(event){
-    event.preventDefault()
-    const href = event.currentTarget.getAttribute('href')
-    const section = document.querySelector(href)
+    function handleScroll(event) {
+        event.preventDefault()
+        const href = event.currentTarget.getAttribute('href')
+        const section = document.querySelector(href)
 
-    //FORMA ALTERNATIVA
-    // const topo = section.offsetTop
-    // window.scrollTo({
-    //     top: topo,
-    //     behavior: 'smooth'
-    // })
+        //FORMA ALTERNATIVA
+        // const topo = section.offsetTop
+        // window.scrollTo({
+        //     top: topo,
+        //     behavior: 'smooth'
+        // })
 
-    section.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+        section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        })
+    }
+
+    linksInternos.forEach((link) => {
+        link.addEventListener("click", handleScroll)
     })
 }
 
-linksInternos.forEach((link) =>{
-    link.addEventListener("click", handleScroll)
-})
+scrollSuave()
+
+//Animação
+
+const sections = document.querySelectorAll('.js-scroll')
+
+function animaScroll(){
+    sections.forEach((section) =>{
+        const sectionTop = section.getBoundingClientRect().top - 500
+        if (sectionTop < 0){
+            section.classList.add('ativo')
+        }
+    })
+}
+
+window.addEventListener('scroll', animaScroll)
